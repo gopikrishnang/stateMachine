@@ -10,11 +10,12 @@ class kmpMatcher {
 				      But on failure the next state need to calculated so that,
 				      we can make use of the already matched portion of the string.
 				      */
+	int state;
 	
 	void preProcessPattern();
 public:
 	kmpMatcher (string p);
 	void printMachine();
-	bool parseForPattern(string s);
+	bool parseForPattern(char ch);
 };
 #endif

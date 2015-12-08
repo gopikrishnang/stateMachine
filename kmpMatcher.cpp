@@ -4,16 +4,17 @@
 kmpMatcher::kmpMatcher (string p) {
 	pattern = p;
 	preProcessPattern();
+	state  = 0;
 }
 
 /* Pre process the pattern to calulate the next state on fallure for each state.
  * nextStateOnFailure[0] = -1
- * nextStateOnFailure[j] = i | if i is the largest integer such that i < j and
- *				pattern[j - 1] = pattern[i - 1]
- *				pattern[j - 2] = pattern[i - 2]
- *				. . .
- *				pattern[j - i] = pattern[0]
- *			    0 | if no such i exist 
+ * nextStateOnFailure[j + 1] = i + 1 | if i is the largest integer such that i < j and
+ *					pattern[j] = pattern[i]
+ *					pattern[j - 1] = pattern[i - 1]
+ *					. . .
+ *					pattern[j - i] = pattern[0]
+ *			    0	     | if no such i exist 
  */
 void kmpMatcher::preProcessPattern() {
 	int i, j;
@@ -35,20 +36,15 @@ void kmpMatcher::printMachine() {
 	for (int i = 0; i < nextStateOnFailure.size(); i++)
 		cout<<nextStateOnFailure[i]<<" ";
 	cout<<endl;
-
 }
 
-bool kmpMatcher::parseForPattern(string s) {
-	int state, i, m;
+bool kmpMatcher::parseForPattern(char ch) {
+	int m;
 	m = pattern.length();
-	state = i = 0;
-	while (i < s.length()) {
-		while (state == m || (state >= 0 && pattern[state] != s[i]))
-			state = nextStateOnFailure[state];
-		state++;
-		i++;
-		if (state == m)
-			return true;
-	}
+	while (state == m || (state >= 0 && pattern[state] != ch))
+		state = nextStateOnFailure[state];
+	state++;
+	if (state == m)
+		return true;
 	return false;
 }
