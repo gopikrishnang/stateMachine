@@ -30,3 +30,7 @@ kmp
 
 # Vim temp files
 *.swp
+
+# Doxygen Files
+html/*
+latex/*

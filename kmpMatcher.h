@@ -4,13 +4,15 @@
 #include <string>
 using namespace std;
 
+/* Parser uses Knuth-Morris-Pratt Algorithm
+ */
 class kmpMatcher {
 	string pattern; /* Pattern to me matched */
 	vector<int> nextStateOnFailure; /* On a match the state of the machine just increments.
 				      But on failure the next state need to calculated so that,
 				      we can make use of the already matched portion of the string.
 				      */
-	int state;
+	int state;	/* Cuurent state of the machine */
 	
 	void preProcessPattern();
 public:

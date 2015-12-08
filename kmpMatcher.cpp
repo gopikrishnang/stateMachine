@@ -1,6 +1,9 @@
 #include "kmpMatcher.h"
 #include <iostream>
 
+/* Intitialise the parser. Saves the pattern to be matched.
+ * Create the state machine and set current state to 0
+ */
 kmpMatcher::kmpMatcher (string p) {
 	pattern = p;
 	preProcessPattern();
@@ -30,6 +33,8 @@ void kmpMatcher::preProcessPattern() {
 	}
 }
 
+/* Print the pattern and state machine
+ */
 void kmpMatcher::printMachine() {
 	cout<<"Pattern : "<<pattern<<endl;
 	cout<<"Fn      : ";
@@ -38,6 +43,10 @@ void kmpMatcher::printMachine() {
 	cout<<endl;
 }
 
+/* Update the state of the machine based on current state and
+ * check if it reaches the final state. Accept if it reach the
+ * final state
+ */
 bool kmpMatcher::parseForPattern(char ch) {
 	int m;
 	m = pattern.length();
